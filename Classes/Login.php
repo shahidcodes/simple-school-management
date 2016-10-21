@@ -18,9 +18,11 @@ class Login
 			$password = $this->validate($login_data["password"]);
 			$dbpassword = $this->db->get("admin", ["username", "=", $username])->first()->password;
 			if($password === $dbpassword){
-				Admin::logUserIn();
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	/*Validation function*/

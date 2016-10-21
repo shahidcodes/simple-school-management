@@ -14,3 +14,19 @@
 	padding: 5px;
 }
 
+div.form{
+	width: 60%;
+	padding: 5em;
+	margin: 0 auto;
+	border-radius: 10px;
+	background: #808080;
+}
+form.form-signin{
+	padding:10px;
+}
+
+form.form-signin input{
+	width: 80% !important;
+	padding: 10px !important;
+	margin: 10px !important;
+}

@@ -10,7 +10,7 @@ $GLOBALS['config'] = array(
 		'host' => '127.0.0.1',
 		'username' => 'root',
 		'password' => '',
-		'db' => 'schooldb'
+		'db' => 'schooldb2'
 		),
 	'session' => [
 		'admin_session' => 'kasjbrjagsnx0asdj'
@@ -24,3 +24,8 @@ spl_autoload_register('my_auto_loader');
 function getNavBar(){ include 'Includes/navbar.php'; }
 function getHeader(){ include 'Includes/header.php'; }
 function getAlert($value){	return "<p class='bg-danger'>$value</p>"; }
+
+function sanitize($value='')
+{
+	return $value;
+}
