@@ -33,17 +33,34 @@ if (Input::exists("get")) {
 			if ($id !== "") {
 				$studentsByClassId = $student->getStudentByClassID($id, 10);
 			?>
-			<div class="panel panel-info">
-				<div class="panel-heading">List Of Students:</div>
-				<div class="panel-body">
-					<ul class="list-group">
-					<?php foreach($studentsByClassId as $std): ?>
-						<li class="list-group-item"><a href="Student.php?sid=<?=$std->id?>"><?=$std->name?></a></li>
-					<?php endforeach; ?>
-					</ul>
-				</div>
-			</div>
-
+			<div>
+			<!-- <ul class="list-group"> -->
+			<table class="table table-stripped">
+			<thead>
+				<tr>
+					<th>Student Name:</th>
+					<th>Father Name:</th>
+					<th>Operation:</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach($studentsByClassId as $std): ?>
+				<!-- <li class="list-group-item"> -->
+				<tr>
+				<td>	<a href="Student.php?sid=<?=$std->id?>"><?=$std->name?></a> </td>
+				<td>	<?=$std->father_name?></td>
+				<td>
+				<a href="#">Edit Student</a>&nbsp;/&nbsp;
+				<a href="#">Pay Fee</a>&nbsp;/&nbsp;
+				<a href="#">Delete Student</a>
+				</td>
+				</tr>
+				<!-- </li> -->
+			<?php endforeach; ?>
+			</tbody>
+			<!-- </ul> -->
+			</table>
+		</div>
 			<?php
 			}
 			break;

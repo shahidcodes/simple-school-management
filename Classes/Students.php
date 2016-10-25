@@ -64,22 +64,53 @@ class Students
 			return count($student) ? $student : false;
 		}
 	}
+	public function getClassNameByID($classID)
+	{
+		return $this->db->get("class", ["id", "=", $classID])->first()->class_name;
+	}
 	public function getClass()
 	{
 		return $this->db->get("class", [1,"=", 1])->results();
 	}
-	public function payFee($month)
+	public function payFee($month, $transport=False)
 	{
+		$sid = $this->data()->id;
+		$cfee = $tfee = false;
+		$session = "Something Went Wrong";
+		$classid = $this->getStudentByID($sid)->class_id;
 		if ($month) {
-			$sid = $this->data()->id;
-			$month = $month . substr(date('Y'), 2);
-			if( $this->db->insert("fee", ["student_id"=>$sid, "status"=>"Paid","month"=>$month]) ){
-				Session::flash("msg", "Paid Succefully");
-				Redirect::to("Student.php?sid=$sid");
-			}
-
-			Redirect::to("Student.php?sid=$sid");
+			$q = "SELECT * FROM fee WHERE student_id = ? AND month = ?";
+			$dbq = $this->db->query($q, [$sid, $month]);
+			if ( !$dbq->count() ){
+				$month = $month . date("y");
+				if( $this->db->insert("fee", ["student_id"=>$sid, "status"=>"Paid","month"=>$month]) ){
+					$cfee = true;
+					// echo "Paid";
+				}
+				var_dump($this->db);
+			}else $session = "Already Paid!";
 		}
+		if ($transport) {
+			$month = $transport . date("y");
+			echo $month;
+			$q = "SELECT * FROM transport WHERE student_id = ? AND month = ?";
+			if ( !$this->db->query($q, [$sid, $month])->count() ){
+				if ($this->db->insert("transport", [
+													"student_id"	=>$sid, 
+													"class_id"		=>$classid, 
+													"month"			=>$month]
+				)) {
+					$tfee = true;
+
+				}
+			}else $session = "Already Paid!";
+		}
+		// check for both to be paid
+		if ($cfee || $tfee) {
+			$session = "Paid Succefully";
+		}
+		Session::flash("msg", $session);
+		Redirect::to("Student.php?sid=$sid");
 	}
 	public function currentMonthFeePaid($id=null)
 	{
@@ -105,19 +136,42 @@ class Students
 		}
 
 	}
+	public function getTransportCurrentMonth($sid)
+	{
+		$pivot = split(" " , date("F Y") );
+		$month = substr( $pivot[0], 0, 3 );
+		$year  = substr( $pivot[1], -2);
+		$identifier = $month.$year;
+		$q = $this->db->get("transport", ["student_id", "=", $sid]);
+		if ($q->count()) {
+			foreach ($q->results() as $f) {
+				if ($f->month == $identifier) {
+					return true;
+				}
+			}
+		}
+	}
 	public function getTransport($sid)
 	{
 		$t = $this->getStudentByID($sid);
 		$t = (bool)$t->transport;
 		if ($t) {
 			// chosen for tranport then lookup for fee payment
-			$transportFee = $this->db->get("transport", ["sid" , "=", $sid])->results();
-			if (count($transportFee) ) {
-				return ["err" => "No Fee Paid Yet"];
-				// render pay form
+			$transportFee = $this->db->get("transport", ["student_id" , "=", $sid]);
+			if ( $transportFee->count() ) {
+				// there is some fees entry fetch them
+				$tfee = $transportFee->results();
+				$months = [];
+				foreach ($tfee as $fee) {
+					$months[] = substr($fee->month, 0, 3);
+				}
+				$dueMonths = $this->filterMonths($months);
+				return $dueMonths;
 			}else{
-				
+				return ["err" => "No Fee Paid Yet"];
 			}
+
+			// render form here if paid or not
 
 		}else{
 			return ["err" => "Not Chosen For Transport"];
@@ -162,6 +216,32 @@ class Students
 	public function data()
 	{
 		return $this->_data;
+	}
+
+	public function filterMonths($monthsArray)
+	{
+		// filter values based on 12 months
+			$abbrMonths = [
+	            'Apr',
+	            'May',
+	            'Jun',
+	            'Jul',
+	            'Aug',
+	            'Sep',
+	            'Oct',
+	            'Nov',
+	            'Dec',
+	            'Jan',
+	            'Feb',
+	            'Mar'
+				];
+			$currentMonth = substr( date("F"), 0, 3 ); // get current month 
+
+			$currentMonthKey = array_search($currentMonth , $abbrMonths ); //search currentmonth key in total monts
+			
+			$abbrMonths = array_slice($abbrMonths, $currentMonthKey); // slice the array from that month because we dont need any previous monts
+			$unpaid = array_diff($abbrMonths, $monthsArray); // not take a differentiaion between paid and total monts
+			return $unpaid; //return array of all unpaid months
 	}
 /**
  * Static Methods Declarations!!

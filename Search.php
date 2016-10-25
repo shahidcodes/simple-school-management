@@ -25,7 +25,38 @@ if (Admin::isLoggedIn()) {
 			$student = new Students();
 			$b = $student->search($q);
 			if ($b) {
-				$student->showList($b);
+				?>
+				<br>
+		<div class="col-md-8">
+			<!-- <ul class="list-group"> -->
+			<table class="table table-stripped">
+			<thead>
+				<tr>
+					<th>Student Name:</th>
+					<th>Father Name:</th>
+					<th>Operation:</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr>
+
+			<?php foreach($b as $std): ?>
+				<!-- <li class="list-group-item"> -->
+				<td>	<a href="Student.php?sid=<?=$std->id?>"><?=$std->name?></a> </td>
+				<td>	<?=$std->father_name?></td>
+				<td>
+				<a href="#">Edit Student</a>&nbsp;/&nbsp;
+				<a href="#">Pay Fee</a>&nbsp;/&nbsp;
+				<a href="#">Delete Student</a>
+				</td>
+				<!-- </li> -->
+			<?php endforeach; ?>
+			</tr>
+			</tbody>
+			<!-- </ul> -->
+			</table>
+		</div>
+				<?php
 			}
 		}
 	}

@@ -30,3 +30,21 @@ form.form-signin input{
 	padding: 10px !important;
 	margin: 10px !important;
 }
+
+/*mohsin*/
+/*material design*/
+body{
+	background-color: #E3F2FD;
+}
+body *{
+	border-radius: 0px;
+}
+
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
+.glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+
+small {
+display: block;
+line-height: 1.428571429;
+color: #999;
+}

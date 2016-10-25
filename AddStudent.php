@@ -12,6 +12,7 @@ if (Input::exists()) {
 	$address = Input::get("address");
 	$dob = Input::get("dob");
 	$classid = Input::get("classid");
+	$father_name = Input::get("father_name");
 	if (!empty($_FILES)) {
 		$avator = Students::uploadAvator();
 	}else{
@@ -26,6 +27,7 @@ if (Input::exists()) {
 		$students->addStudent([
 			"name" 		=> $name,
 			"mobile" 	=> $mobile,
+			"father_name"=> $father_name,
 			"regnum"	=> $regnum,
 			"rollnum"	=> $rollnum,
 			"address"	=> $address,
@@ -37,33 +39,36 @@ if (Input::exists()) {
 
 }
 ?>
-<div class="container">
-<div class="jumbotron">
-	<h1>Mohsin Public School</h1>
-	<h3>Add Students</h3>
-</div>
 <content>
-<div><code style="padding: 15px;"><? echo Session::flash("msg")?></code></div>
+<?php echo Session::flash("msg")?>
+<h2 class="header">Add Student</h2>
+<b>
 <form action="" method="POST" enctype="multipart/form-data">
-	<div class="form-group">
-	<input type="text" class="form-control" id="name_input" name="name" placeholder="Full Name">
-	<input type="text" class="form-control" id="mobile_input" name="mobile" placeholder="Mobile Number">
+	<div class="form-group col-md-4">
+		<input type="text" class="form-control" id="name_input" name="name" placeholder="Full Name">
 	</div>
-	<div class="form-group">
+	<div class="form-group col-md-4">
+		<input type="text" class="form-control" name="father_name" placeholder="Father Name... ">
+	</div>
+	<div class="form-group col-md-4 ">
+		<input type="text" class="form-control" id="mobile_input" name="mobile" placeholder="Mobile Number">
+	</div>
+	<div class="col-md-5 form-group">
 		<input type="text" class="form-control" name="regnum" placeholder="Regitration Number">
 	</div>
-	<div class="form-group">
+	<div class="col-md-7 form-group">
 		<input type="text" class="form-control" name="rollnum" placeholder="Roll Number">
 	</div>
-	<div class="form-group">
+	<div class="col-md-12 form-group">
 		<input type="text" class="form-control" name="address" placeholder="Address">
 	</div>
-	<div class="form-group">
+	<div class="col-md-4 form-group">
+	<label>Date Of Birth</label>
 		<input type="text" class="form-control" name="dob" placeholder="Date Of Birth (DD/MM/YYYY)">
 	</div>
-	<div class="dropdown">
+	<div class="dropdown col-md-4 col-sm-12">
 	<label>Select Class: </label>
-	<select name="classid" class="class-select">
+	<select name="classid" class="form-control class-select">
 	<?php
 
 	foreach (Students::getClassLists() as $id => $value) {
@@ -72,13 +77,14 @@ if (Input::exists()) {
 	?>
 	</select>
 	</div>
-	<div class="form-group">
+	<div class="col-md-4 form-group">
 		<label for="avator">Upload Image</label>
 		<input type="file" name="avator" id="avator">
 		<p class="help-block">Upload Image Of Student</p>
 	</div>
-	<button type="submit" class="btn btn-default">Submit</button>
+	<div class="col-md-12"><button type="submit" class="btn btn-default">Submit</button></div>
 </form>
+</b>
 </content>
 </div>
 <?php
