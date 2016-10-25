@@ -25,7 +25,7 @@ class Utils
 	}
 	?>
 			</select>
-			<input type="submit" class="btn btn-default">
+			<input type="submit" value="Pay <?=($month)?"This Month":"Transport" ?> Fee" class="btn btn-default">
 		</div>
 	</form>
 	<?php	

@@ -1,5 +1,5 @@
 <!-- navbar -->
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="Dash.php">Mohsin Public School</a>
@@ -8,7 +8,8 @@
       <!-- Left Aligned -->
         <ul class="nav navbar-nav">
           <li class="active"><a href="Dash.php">Dashboard</a></li>
-          <li><a href="Search.php">Pay Fee</a></li>
+          <li><a href="Search.php">Search Students</a></li>
+          <li><a href="Search.php">Fee Payment</a></li>
           <li><a href="AddStudent.php">Add New Student</a></li>
           <li><a href="Dash.php?action=view_student">View Students</a></li>
         </ul>

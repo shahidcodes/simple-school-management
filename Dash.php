@@ -50,9 +50,9 @@ if (Input::exists("get")) {
 				<td>	<a href="Student.php?sid=<?=$std->id?>"><?=$std->name?></a> </td>
 				<td>	<?=$std->father_name?></td>
 				<td>
-				<a href="#">Edit Student</a>&nbsp;/&nbsp;
+				<a href="AddStudent.php?action=edit&id=<?=$std->id?>">Edit Student</a>&nbsp;/&nbsp;
 				<a href="#">Pay Fee</a>&nbsp;/&nbsp;
-				<a href="#">Delete Student</a>
+				<a href="Dash.php?action=delete_student&id=<?=$std->id?>">Delete Student</a>
 				</td>
 				</tr>
 				<!-- </li> -->
@@ -63,6 +63,12 @@ if (Input::exists("get")) {
 		</div>
 			<?php
 			}
+			break;
+		case 'delete_student':
+			$id = Input::get("id");
+			$students = new Students($id);
+			$students->delete();
+			echo "<h4 class='bg-info'>Student Deleted!</h4>";
 			break;
 		default:break;
 	}

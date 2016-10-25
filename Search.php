@@ -38,20 +38,20 @@ if (Admin::isLoggedIn()) {
 				</tr>
 			</thead>
 			<tbody>
-			<tr>
 
 			<?php foreach($b as $std): ?>
+			<tr>
 				<!-- <li class="list-group-item"> -->
 				<td>	<a href="Student.php?sid=<?=$std->id?>"><?=$std->name?></a> </td>
 				<td>	<?=$std->father_name?></td>
 				<td>
-				<a href="#">Edit Student</a>&nbsp;/&nbsp;
-				<a href="#">Pay Fee</a>&nbsp;/&nbsp;
-				<a href="#">Delete Student</a>
+				<a href="AddStudent.php?action=edit&id=<?=$std->id?>">Edit Student</a>&nbsp;/&nbsp;
+				<a href="Student.php?sid=<?=$std->id?>">Pay Fee</a>&nbsp;/&nbsp;
+				<a href="Dash.php?action=delete_student&id=<?=$std->id?>">Delete Student</a>
 				</td>
 				<!-- </li> -->
-			<?php endforeach; ?>
 			</tr>
+			<?php endforeach; ?>
 			</tbody>
 			<!-- </ul> -->
 			</table>

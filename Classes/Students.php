@@ -22,11 +22,28 @@ class Students
 	{	
 		$q = $this->db->insert("students", $data);
 		if($q){
-			echo "Done";
+			// echo "Done";
 			Session::flash("msg", "Student Added Succefully");
 		}
 	}
+	public function update($id, $data)
+	{
+		if ( $this->db->update("students", $id, $data) ) {
+			Session::flash("msg", "Student Profile Updated!");
+		}
+		return;
+	}
 
+	public function delete($id=null)
+	{
+		if (!$id)
+			$id = $this->data()->id;
+		if ($this->db->delete("students", ["id", "=", $id])) {
+			return true;
+		}
+
+		return false;
+	}
 	public function search($value='')
 	{
 		$pivot = "%$value%";
@@ -253,6 +270,14 @@ class Students
 			$classes[$l->id] = $l->class_name;
 		}
 		return $classes;
+	}
+	public static function getRoutes()
+	{
+		$list = DB::getInstance()->get("routes", [1,"=",1])->results();
+		foreach ($list as $l) {
+			$routes[$l->id] = $l->route_id;
+		}
+		return $routes;
 	}
 	public static function uploadAvator()
 	{

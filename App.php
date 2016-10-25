@@ -23,7 +23,7 @@ spl_autoload_register('my_auto_loader');
 
 function getNavBar(){ include 'Includes/navbar.php'; }
 function getHeader(){ include 'Includes/header.php'; }
-function getAlert($value){	return "<p class='bg-danger'>$value</p>"; }
+function getAlert($value){	return '<div class="alert alert-danger" role="alert">'.$value.'</div>'; }
 
 function sanitize($value='')
 {
