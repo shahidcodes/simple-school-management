@@ -37,15 +37,15 @@ class Students
 
 		return false;
 	}
-	/**
-	 * @var $studentList { type: Array of student Object}
-	 */
-	public function showList($studentsList)
-	{
-		foreach ($studentsList as $student) {
-			echo "<a href=\"Student.php?sid=$student->id\">$student->name</a><br>";
-		}
-	}
+	// /**
+	//  * @var $studentList { type: Array of student Object}
+	//  */
+	// public function showList($studentsList)
+	// {
+	// 	foreach ($studentsList as $student) {
+	// 		echo "<a href=\"Student.php?sid=$student->id\">$student->name</a><br>";
+	// 	}
+	// }
 
 	public function getStudentByID($id=null)
 	{
@@ -54,6 +54,19 @@ class Students
 			$this->_data = $student;
 			return $student;
 		}
+	}
+
+	public function getStudentByClassID($classid='', $lim)
+	{
+		if ($classid) {
+			$student = $this->db->get("students", ["class_id", "=", $classid])->results();
+			$this->_data = $student;
+			return count($student) ? $student : false;
+		}
+	}
+	public function getClass()
+	{
+		return $this->db->get("class", [1,"=", 1])->results();
 	}
 	public function payFee($month)
 	{
@@ -92,7 +105,24 @@ class Students
 		}
 
 	}
+	public function getTransport($sid)
+	{
+		$t = $this->getStudentByID($sid);
+		$t = (bool)$t->transport;
+		if ($t) {
+			// chosen for tranport then lookup for fee payment
+			$transportFee = $this->db->get("transport", ["sid" , "=", $sid])->results();
+			if (count($transportFee) ) {
+				return ["err" => "No Fee Paid Yet"];
+				// render pay form
+			}else{
+				
+			}
 
+		}else{
+			return ["err" => "Not Chosen For Transport"];
+		}
+	}
 	public function totalDue($id=null)
 	{
 		if ($id) {

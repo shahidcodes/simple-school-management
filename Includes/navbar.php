@@ -10,6 +10,7 @@
           <li class="active"><a href="Dash.php">Dashboard</a></li>
           <li><a href="Search.php">Pay Fee</a></li>
           <li><a href="AddStudent.php">Add New Student</a></li>
+          <li><a href="Dash.php?action=view_student">View Students</a></li>
         </ul>
         <!-- Right Aligned -->
         <ul class="nav navbar-nav navbar-right">

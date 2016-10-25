@@ -12,6 +12,7 @@ echo Session::flash("msg"); //Flash Notification Messeges!
 			$studentData = $student->getStudentByID($sid) ;
 			$isPaid = $student->currentMonthFeePaid($sid);
 			$unpaid = $student->totalDue($sid);
+			$transport = $student->getTransport($sid);
 			echo "Name : $studentData->name <br>Current-Month-Status: ";
 			// echo ($isPaid)? "Paid" : "Not Paid";
 			if ($isPaid) {
@@ -30,6 +31,12 @@ echo Session::flash("msg"); //Flash Notification Messeges!
 				echo " No Fee Paid";
 			}else{
 				echo " All Fee Paid";
+			}
+			echo "<br>Transport: ";
+			if ( !isset($transport["err"]) ) {
+				// chosen for tranport
+			}else if (isset($transport["err"])) {
+				echo $transport["err"];
 			}
 	}
 
