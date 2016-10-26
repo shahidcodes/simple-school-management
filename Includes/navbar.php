@@ -12,6 +12,7 @@
           <li><a href="Search.php">Fee Payment</a></li>
           <li><a href="AddStudent.php">Add New Student</a></li>
           <li><a href="Dash.php?action=view_student">View Students</a></li>
+          <li><a href="Routes.php">Routes</a></li>
         </ul>
         <!-- Right Aligned -->
         <ul class="nav navbar-nav navbar-right">

@@ -72,7 +72,13 @@ class Students
 			return $student;
 		}
 	}
-
+	public function getRouteByStudentID()
+	{
+		$id = $this->data()->route_id;
+		if ($id) {
+			return $this->db->get("routes", ["id", "=", $id])->first();
+		}
+	}
 	public function getStudentByClassID($classid='', $lim)
 	{
 		if ($classid) {
@@ -275,7 +281,7 @@ class Students
 	{
 		$list = DB::getInstance()->get("routes", [1,"=",1])->results();
 		foreach ($list as $l) {
-			$routes[$l->id] = $l->route_id;
+			$routes[$l->id] = $l->route_name;
 		}
 		return $routes;
 	}

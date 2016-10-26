@@ -77,29 +77,30 @@ if (Input::exists()) {
 </div>
 <b>
 <form action="" method="POST" enctype="multipart/form-data">
-	<div class="form-group col-md-4">
-		<input type="text" class="form-control" id="name_input" name="name" value="<?=($editForm)?$data->name:""?>" placeholder="Full Name">
+	<div class="col-md-8 col-sm-12">
+	<div class="form-group">
+		<input type="text" class="form-control" name="name" value="<?=($editForm)?$data->name:""?>" placeholder="Full Name">
 	</div>
-	<div class="form-group col-md-4">
+	<div class="form-group">
 		<input type="text" class="form-control" name="father_name" value="<?=($editForm)?$data->father_name:""?>" placeholder="Father Name... ">
 	</div>
-	<div class="form-group col-md-4 ">
-		<input type="text" class="form-control" id="mobile_input" value="<?=($editForm)?$data->mobile:""?>" name="mobile" placeholder="Mobile Number">
+	<div class="form-group">
+		<input type="text" class="form-control" value="<?=($editForm)?$data->mobile:""?>" name="mobile" placeholder="Mobile Number">
 	</div>
-	<div class="col-md-5 form-group">
+	<div class="form-group">
 		<input type="text" class="form-control" name="regnum" value="<?=($editForm)?$data->regnum:""?>" placeholder="Regitration Number">
 	</div>
-	<div class="col-md-7 form-group">
+	<div class="form-group">
 		<input type="text" class="form-control" name="rollnum" value="<?=($editForm)?$data->rollnum:""?>" placeholder="Roll Number">
 	</div>
-	<div class="col-md-12 form-group">
+	<div class="form-group">
 		<input type="text" class="form-control" name="address" value="<?=($editForm)?$data->address:""?>" placeholder="Address">
 	</div>
-	<div class="col-md-4 form-group">
+	<div class="form-group">
 	<label>Date Of Birth</label>
 		<input type="text" class="form-control" name="dob" value="<?=($editForm)?$data->dob:""?>" placeholder="Date Of Birth (DD/MM/YYYY)">
 	</div>
-	<div class="dropdown col-md-4 col-sm-12">
+	<div class="dropdown">
 	<label>Select Class: </label>
 	<select name="classid" class="form-control class-select">
 	<?php
@@ -114,17 +115,17 @@ if (Input::exists()) {
 	?>
 	</select>
 	</div>
-	<div class="col-md-4 form-group">
+	<div class="form-group">
 		<label for="avator">Upload Image</label>
 		<input type="file" name="avator" id="avator">
 		<p class="help-block">Upload Image Of Student/ Upload To Update</p>
 	</div>
-	<div class="col-md-12 checkbox">
+	<div class="checkbox">
 		<label>
 			<input type="checkbox" id="transportCheckBox" name="transport" <?=($editForm && $data->transport)?"checked":""?>/> Applied For Transport?
 		</label>
 	</div>
-	<div class="col-md-8 col-sm-12 <?=($data->transport)?"":"routeSelect"?>">
+	<div class="<?=($data->transport)?"":"routeSelect"?>">
 		<label>Select Route: </label>
 		<select name="route_id" class="form-control class-select">
 		<?php
@@ -139,7 +140,9 @@ if (Input::exists()) {
 		?>
 		</select>
 	</div>
-	<div class="col-md-12"><button type="submit" class="btn btn-default"><?=($editForm)?"Update Profile":"Insert Student"?></button></div>
+	<div class="btn"><button type="submit" class="btn btn-primary"><?=($editForm)?"Update Profile":"Insert Student"?></button></div>
+	</div>
+
 </form>
 </b>
 </content>
