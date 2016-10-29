@@ -80,6 +80,14 @@ if (Input::exists("get")) {
 }else{
 $dashboard = new Dashboard();
 $tCourseFee = $dashboard->getTotalCourseFee();
+$totalStudent = $dashboard->getTotalStudent();
+$percentageCourseFee = ($totalStudent/$tCourseFee)*100;
+$tTranportFee = $dashboard->getTotalTransportFee();
+$tTranportFee = ($tTranportFee==0)?1:$tTranportFee;
+$percentageTransportFee = ($totalStudent/$tTranportFee)*100;
+
+$tOtherFee = $dashboard->getTotalOtherFee();
+$percentageOtherFee = sprintf("%01.2f", ($totalStudent/$tOtherFee)*100 );
 ?>
 <div class="row">
 	<!-- Course Fee -->
@@ -88,8 +96,8 @@ $tCourseFee = $dashboard->getTotalCourseFee();
 			<div class="panel-heading"><b> Total Course Fee Paid </b></div>
 			<div class="panel-body">
 				<div class="col-md-1"></div>
-				<div class="c100 p25 big green">
-					<span>1200</span>
+				<div class="c100 p<?=$percentageCourseFee?> big green">
+					<span><?=$percentageCourseFee?>%</span>
 					<div class="slice">
 					    <div class="bar"></div>
 					    <div class="fill"></div>
@@ -97,18 +105,18 @@ $tCourseFee = $dashboard->getTotalCourseFee();
 				</div>
 			</div>
 			<div class="panel-footer">
-				Total Fee Paid = <?=$tCourseFee?> INR
+				<b> Total Fee Paid = <?=$tCourseFee?> INR </b>
 			</div>
 		</div>
 	</div>
 	<!-- Tranport Fee -->
 	<div class="col-md-4 circle-box" style="text-align: center">
 		<div class="panel panel-success">
-			<div class="panel-heading"> Total Fee Paid</div>
+			<div class="panel-heading"><b>  Total Tranport Fee Fee Paid</b></div>
 			<div class="panel-body">
 				<div class="col-md-1"></div>
-				<div class="c100 p25 big green">
-					<span>1200</span>
+				<div class="c100 p<?=$percentageTransportFee?> big green">
+					<span><?=$percentageTransportFee?>%</span>
 					<div class="slice">
 					    <div class="bar"></div>
 					    <div class="fill"></div>
@@ -116,18 +124,18 @@ $tCourseFee = $dashboard->getTotalCourseFee();
 				</div>
 			</div>
 			<div class="panel-footer">
-				Total Fee Paid = 12,098,19 INR
+				<b> Total Fee Paid = <?=$tTranportFee?> INR</b>
 			</div>
 		</div>
 	</div>
 	<!-- Other Fee -->
 	<div class="col-md-4 circle-box" style="text-align: center">
 		<div class="panel panel-success">
-			<div class="panel-heading"> Total Fee Paid</div>
+			<div class="panel-heading"><b> Total Other Fee Paid </b></div>
 			<div class="panel-body">
 				<div class="col-md-1"></div>
-				<div class="c100 p25 big green">
-					<span>1200</span>
+				<div class="c100 p<?=$percentageOtherFee?> big green">
+					<span><?=$percentageOtherFee?>%</span>
 					<div class="slice">
 					    <div class="bar"></div>
 					    <div class="fill"></div>
@@ -135,7 +143,7 @@ $tCourseFee = $dashboard->getTotalCourseFee();
 				</div>
 			</div>
 			<div class="panel-footer">
-				Total Fee Paid = 12,098,19 INR
+				<b> Total Fee Paid = <?=$tOtherFee?> INR </b>
 			</div>
 		</div>
 	</div>
