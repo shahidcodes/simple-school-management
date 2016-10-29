@@ -1,22 +1,25 @@
 <?php
 
 require 'App.php';
-getHeader();
 getNavbar();
+getHeader();
 ?>
-<div class="row">
-<div class="col-lg-6">
-	<p class="lead"> Search Students By Name To Pay the Fee </p>
-	<form action="" method="POST">
-	    <div class="input-group">
-	      <input type="text" name="searchq" class="form-control" placeholder="Search for...">
-	      <span class="input-group-btn">
-	        <button class="btn btn-default" type="button">Go!</button>
-	      </span>
-	    </div><!-- /input-group -->
-	</form>
-  </div><!-- /.col-lg-6 -->
-</div><!-- ./row -->
+<div class="col-md-12">
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<p class="lead"> Search Students By Name To Pay the Fee </p>
+	</div>
+	<div class="panel-body">
+	<div class="col-md-8">
+		<form action="" method="POST">
+		    <div class="input-group">
+		      <input type="text" name="searchq" class="form-control" placeholder="Search for...">
+		      <span class="input-group-btn">
+		        <button class="btn btn-default" type="button">Go!</button>
+		      </span>
+		    </div>
+		</form>
+	</div>
 <?php
 if (Admin::isLoggedIn()) {
 	if (Input::exists()) {
@@ -64,6 +67,9 @@ if (Admin::isLoggedIn()) {
 	Redirect::to("Dash");
 }
 ?>
+</div><!-- /.panel -->
+</div><!-- /.col-lg-6 -->
+</div><!-- ./row -->
 </div>
 </body>
 </html>

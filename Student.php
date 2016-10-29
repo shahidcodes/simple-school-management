@@ -3,10 +3,9 @@
 <?php
 
 require 'App.php';
-getHeader();
-
 if (Admin::isLoggedIn()) {
-    getNavbar();
+	getNavbar();
+	getHeader();
     echo Session::flash("msg"), "<br>"; //Flash Notification Messeges!
     if (Input::exists("get")) {
         $sid                   = Input::get("sid");
@@ -41,8 +40,8 @@ if (Admin::isLoggedIn()) {
 			    	<?php
 			    	if($studentData->transport){
 			    		echo "YES";
+			    		echo "|Route: ", $student->getRouteByStudentID()->route_name;
 			    	}
-			    	echo "|Route: ", $student->getRouteByStudentID()->route_name;
 			    	?>
 			    </b></p>
 			    <i class="glyphicon glyphicon-education"></i><b><?=$studentData->regnum, " / ", $studentData->rollnum?></b></p>
@@ -79,7 +78,7 @@ if (Admin::isLoggedIn()) {
 		if (!$isPaid) {
             Utils::renderPayForm($sid);
         } else {
-            echo "<h4 class=\"bg-primary\">Paid</h4>";
+            echo "<h4>Paid<a class='text text-info' href='print.php?fee_type=course&month=current&sid=$studentData->id'>(Print Fee)</a></h4>";
         }
 
         ?>
@@ -105,7 +104,7 @@ if (Admin::isLoggedIn()) {
 		if (!$transportCurrentMonth) {
             Utils::renderPayForm($sid, 0);
         } else {
-            echo "<h4 class=\"bg-primary\">Paid</h4>";
+            echo "<h4>Paid <a class='text text-info' href='print.php?fee_type=transport&month=current&sid=$studentData->id'>(Print Fee)</a></h4>";
         }
 
         ?>

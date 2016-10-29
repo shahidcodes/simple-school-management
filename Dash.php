@@ -1,8 +1,8 @@
 <?php
 include 'App.php';
+getNavBar();
 getHeader();
 ?>
-<?php getNavBar(); ?>
 <!-- Main Content -->
 <div class="col-md-8 col-sm-12">
 <?php
@@ -12,22 +12,25 @@ if (Input::exists("get")) {
 	switch ($action) {
 		case 'view_student':
 			?>
-			<form class="form" role="form" action="" method="GET">
-			<input type="hidden" name="action" value="view_student">
-				<div class="form-group">
-				<label for="class">Select Class</label>
-					<select name="class" class="form-control">
-				<?php
-				$student = new Students();
-				$classes = $student->getClass();
-				foreach ($classes as $cls) {
-					echo "<option value='$cls->id'>$cls->class_name</option>"	;
-				}
-				?>
-					</select>
-				</div>
-				<input type="submit" class="btn btn-sm btn-info" />
-			</form>
+			<div class="panel panel-primary">
+			<div class="panel-heading"><p class="lead">View Students In A Class </p></div>
+			<div class="panel-body">
+				<form class="form" role="form" action="" method="GET">
+				<input type="hidden" name="action" value="view_student">
+					<div class="form-group">
+					<label for="class">Select Class</label>
+						<select name="class" class="form-control">
+					<?php
+					$student = new Students();
+					$classes = $student->getClass();
+					foreach ($classes as $cls) {
+						echo "<option value='$cls->id'>$cls->class_name</option>"	;
+					}
+					?>
+						</select>
+					</div>
+					<input type="submit" class="btn btn-sm btn-info" />
+				</form>
 			<?php
 			$id = Input::get("class");
 			if ($id !== "") {
@@ -61,6 +64,8 @@ if (Input::exists("get")) {
 			<!-- </ul> -->
 			</table>
 		</div>
+		</div> <!-- ./panel-body -->
+		</div> <!-- ./panel -->
 			<?php
 			}
 			break;

@@ -1,4 +1,7 @@
 
+body{
+	font-family: 'Roboto', sans-serif;
+}
 .container{
 	margin-top:10px; 
 }
@@ -6,32 +9,20 @@
 	padding: 5px;
 }
 
-div.form{
-	width: 60%;
-	padding: 5em;
+/*Login Form*/
+.form-main{
+	text-align: center;
 	margin: 0 auto;
-	border-radius: 10px;
-	background: #808080;
+	width: 70%;
+	padding: 5em;
 }
-form.form-signin{
-	padding:10px;
+.form-wrapper{
+	color: #fff;
+	background-color: rgba(0,0,0,0.6);
+	border-radius: 14px;
+	padding: 1em;
 }
-
-form.form-signin input{
-	width: 80% !important;
-	padding: 10px !important;
-	margin: 10px !important;
-}
-
-/*mohsin*/
-/*material design*/
-body{
-	background-color: #E3F2FD;
-}
-body *{
-	border-radius: 0px;
-}
-
+/*Student Details Page*/
 .glyphicon {  margin-bottom: 10px;margin-right: 10px;}
 
 small {
@@ -42,4 +33,34 @@ color: #999;
 
 .routeSelect{
 	display: none;
+}
+
+
+/*navbar top*/
+
+.navbar-default{
+	background-color: #009688;
+	border-color: black;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+}
+.navbar-default .navbar-nav>li>a {
+	color: #fff;
+}
+.navbar-brand{
+	color: #fff !important;
+}
+
+
+/*add student */
+
+.add-student{
+	background-color: rgba(0,0,0,0.4);
+	font-weight: bold;
+	text-align: center;
+	color: #fff;
+}
+
+.add-student-form-main{
+	width: 90%;
+	margin: auto 20%;
 }

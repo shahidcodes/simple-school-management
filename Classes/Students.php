@@ -72,6 +72,14 @@ class Students
 			return $student;
 		}
 	}
+	public function getClassFee($class_id='')
+	{
+		if (!$class_id) {
+			$class_id = $this->data()->class_id;
+		}
+		$fee = $this->db->get("class", ["id", "=", $class_id])->first();
+		return $fee;
+	}
 	public function getRouteByStudentID()
 	{
 		$id = $this->data()->route_id;

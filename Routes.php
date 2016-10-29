@@ -1,8 +1,8 @@
 <?php
 
 require 'App.php';
-getHeader();
 getNavbar();
+getHeader();
 if (Admin::isLoggedIn()) {
 	$edit = 0;
 	if (Input::exists() || Input::exists("get")) {
