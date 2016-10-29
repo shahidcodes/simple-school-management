@@ -12,6 +12,7 @@ class Utils
 	<form class="form-inline" method="POST" action="AddFee.php">
 		<div class="form-group">
 			<input type="hidden" class="form-control" name="sid" value="<?=$sid?>">
+			<input type="hidden" class="form-control" name="action" value="regular">
 			<select name="<?=($month)?"month":"transport"?>" class="form-control">
 	<?php
 	$abbrMonths = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];

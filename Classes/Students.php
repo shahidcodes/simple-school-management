@@ -95,6 +95,18 @@ class Students
 			return count($student) ? $student : false;
 		}
 	}
+	public function getOtherFee($sid="")
+	{
+		if (!$sid) {
+			$sid = $this->data()->id;
+		}
+		$query = $this->db->get("other_fee", ["student_id", "=", $sid]);
+		if ($query->count()) {
+			return $query->results();
+		}
+
+		return false;
+	}
 	public function getClassNameByID($classID)
 	{
 		return $this->db->get("class", ["id", "=", $classID])->first()->class_name;
@@ -109,28 +121,38 @@ class Students
 		$cfee = $tfee = false;
 		$session = "Something Went Wrong";
 		$classid = $this->getStudentByID($sid)->class_id;
+		$amount  = $this->getClassFee($classid)->fee_detail;
 		if ($month) {
 			$q = "SELECT * FROM fee WHERE student_id = ? AND month = ?";
 			$dbq = $this->db->query($q, [$sid, $month]);
 			if ( !$dbq->count() ){
 				$month = $month . date("y");
-				if( $this->db->insert("fee", ["student_id"=>$sid, "status"=>"Paid","month"=>$month]) ){
+				if( $this->db->insert("fee", [
+								"student_id"	=> $sid, 
+								"status"		=> "Paid",
+								"amount"		=> $amount,
+								"class_id"		=> $classid,
+								"month"			=> $month
+				]) ){
 					$cfee = true;
 					// echo "Paid";
 				}
-				var_dump($this->db);
 			}else $session = "Already Paid!";
 		}
 		if ($transport) {
-			$month = $transport . date("y");
-			echo $month;
+			$route_id = $transport[1];
+			$route = new Route($route_id);
+			$month = $transport[0] . date("y");
 			$q = "SELECT * FROM transport WHERE student_id = ? AND month = ?";
 			if ( !$this->db->query($q, [$sid, $month])->count() ){
-				if ($this->db->insert("transport", [
-													"student_id"	=>$sid, 
-													"class_id"		=>$classid, 
-													"month"			=>$month]
-				)) {
+				$fields = [
+							"student_id"	=> $sid, 
+							"class_id"		=> $classid, 
+							"month"			=> $month,
+							"route_id"		=> $route_id,
+							"amount"		=> $route->data()->route_fee
+							];
+				if ($this->db->insert("transport", $fields)) {
 					$tfee = true;
 
 				}
@@ -143,6 +165,20 @@ class Students
 		Session::flash("msg", $session);
 		Redirect::to("Student.php?sid=$sid");
 	}
+
+	public function payOtherFee($fields)
+	{
+		$valid_fee_type = ["exam", "book", "other"];
+		if ( in_array( $fields["fee_type"], $valid_fee_type )  ) {
+			
+			if( $this->db->insert("other_fee", $fields) ){
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function currentMonthFeePaid($id=null)
 	{
 		if ($id) {

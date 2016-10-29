@@ -13,17 +13,19 @@ if (Admin::isLoggedIn()) {
 				case 'add':
 					$route_name = Input::get("route_name");
 					$route_desc	= Input::get("route_desc");
+					$route_fee	= Input::get("route_fee");
 					$route = new Route();
-					if ($route->addRoute(["route_name"=>$route_name, "route_desc"=>$route_desc])){
+					if ($route->addRoute(["route_name"=>$route_name, "route_desc"=>$route_desc, "route_fee"=>$route_fee])){
 						echo getAlert("Added Successfully");
 					}
 					break;
 				case 'edit':
 					$route_name = Input::get("route_name");
 					$route_desc	= Input::get("route_desc");
+					$route_fee	= Input::get("route_fee");
 					$r_id		= Input::get("r_id");
 					$route = new Route();
-					if ($route->updateRoute($r_id, ["route_name"=>$route_name, "route_desc"=>$route_desc])){
+					if ($route->updateRoute($r_id, ["route_name"=>$route_name, "route_desc"=>$route_desc, "route_fee" => $route_fee])){
 						Session::flash("msg",getAlert("Route Updated Successfully"));
 					}
 					break;
@@ -43,7 +45,7 @@ if (Admin::isLoggedIn()) {
 	}
 ?>
 <?php echo Session::flash("msg") ?>
-<div class="col-md-6 col-md-push-3 col-sm-12">
+<div class="col-md-12">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h1>List Of Routes:</h1>
@@ -54,6 +56,7 @@ if (Admin::isLoggedIn()) {
 					<tr>
 					<th>Route</th>
 					<th>Description</th>
+					<th>Fee</th>
 					<th>Operation</th>
 					</tr>
 				</thead>
@@ -67,19 +70,24 @@ if (Admin::isLoggedIn()) {
 							<td>$r->route_name
 							</td>
 							<td>$r->route_desc</td>
+							<td>$r->route_fee</td>
 							<td>
-							<a href='Routes.php?r_id=$r->id'>Edit</a> -
-							<a href='Routes.php?action=delete&r_id=$r->id'>Delete</a>
+							<a class='btn btn-sm btn-info' href='Routes.php?r_id=$r->id'>Edit</a> -
+							<a class='btn btn-sm btn-danger' href='Routes.php?action=delete&r_id=$r->id'>Delete</a>
 							</td>
 							</tr>";
 					}
 				}elseif ($edit) {
 					$r_id	= Input::get("r_id");
 					$route = new Route($r_id);
-					echo "<tr><td>{$route->data()->route_name}</td><td>{$route->data()->route_desc}</td><td>
-					<a href='Routes.php?r_id={$route->data()->id}'>Edit</a> -
-					<a href='Routes.php?action=delete&r_id={$route->data()->id}'>Delete</a>
-					</td></tr>";
+					echo "<tr>
+							<td>{$route->data()->route_name}</td>
+							<td>{$route->data()->route_desc}</td>
+							<td>{$routes->data()->route_fee}</td>
+							<td><a class='btn btn-sm btn-info' href='Routes.php?r_id={$route->data()->id}'>Edit</a> -
+							<a class='btn btn-sm btn-info' href='Routes.php?action=delete&r_id={$route->data()->id}'>Delete</a>
+							</td>
+						</tr>";
 				}
 				?>
 				</tbody>
@@ -99,9 +107,12 @@ if (Admin::isLoggedIn()) {
 					<input type="text" class="form-control" name="route_name" <?=($edit)?"value='$data->route_name'":""?> placeholder="Route Name....">
 				</div>
 				<div class="form-group">
-					<input type="Route Description" class="form-control" name="route_desc" <?=($edit)?"value='$data->route_desc'":""?> placeholder="Add Route Information Here ..." />
+					<input type="text" class="form-control" name="route_desc" <?=($edit)?"value='$data->route_desc'":""?> placeholder="Add Route Information Here ..." />
 				</div>
-				<input type="submit" class="btn btn-sm btn-danger" value="<?=($edit)?"Update":"Add"?> Route" />
+				<div class="form-group">
+					<input type="text" class="form-control" name="route_fee" <?=($edit)?"value='$data->route_fee'":""?> placeholder="Fee" />
+				</div>
+				<input type="submit" class="btn btn-sm btn-success" value="<?=($edit)?"Update":"Add"?> Route" />
 			</form>
 		</div>
 	</div>

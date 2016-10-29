@@ -1,5 +1,11 @@
 <?php
 
+$dob = "12/06/2015";
+$s = ["/", ","];
+$dob = date("Y-m-d",strtotime(str_replace($s, "-", $dob))) ;
+print $dob;
+
+die();
 require 'App.php';
 getHeader();
 getNavbar();

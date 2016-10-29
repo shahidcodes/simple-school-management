@@ -4,7 +4,7 @@ getNavBar();
 getHeader();
 ?>
 <!-- Main Content -->
-<div class="col-md-8 col-sm-12">
+<div class="col-md-12 col-sm-12">
 <?php
 if (Admin::isLoggedIn()) {
 if (Input::exists("get")) {
@@ -77,10 +77,87 @@ if (Input::exists("get")) {
 			break;
 		default:break;
 	}
-}
+}else{
+$dashboard = new Dashboard();
+$tCourseFee = $dashboard->getTotalCourseFee();
 ?>
+<div class="row">
+	<!-- Course Fee -->
+	<div class="col-md-4 circle-box" style="text-align: center">
+		<div class="panel panel-success">
+			<div class="panel-heading"><b> Total Course Fee Paid </b></div>
+			<div class="panel-body">
+				<div class="col-md-1"></div>
+				<div class="c100 p25 big green">
+					<span>1200</span>
+					<div class="slice">
+					    <div class="bar"></div>
+					    <div class="fill"></div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				Total Fee Paid = <?=$tCourseFee?> INR
+			</div>
+		</div>
+	</div>
+	<!-- Tranport Fee -->
+	<div class="col-md-4 circle-box" style="text-align: center">
+		<div class="panel panel-success">
+			<div class="panel-heading"> Total Fee Paid</div>
+			<div class="panel-body">
+				<div class="col-md-1"></div>
+				<div class="c100 p25 big green">
+					<span>1200</span>
+					<div class="slice">
+					    <div class="bar"></div>
+					    <div class="fill"></div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				Total Fee Paid = 12,098,19 INR
+			</div>
+		</div>
+	</div>
+	<!-- Other Fee -->
+	<div class="col-md-4 circle-box" style="text-align: center">
+		<div class="panel panel-success">
+			<div class="panel-heading"> Total Fee Paid</div>
+			<div class="panel-body">
+				<div class="col-md-1"></div>
+				<div class="c100 p25 big green">
+					<span>1200</span>
+					<div class="slice">
+					    <div class="bar"></div>
+					    <div class="fill"></div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer">
+				Total Fee Paid = 12,098,19 INR
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				Useful Links:
+			</div>
+			<div class="panel-body" style="padding: 2em;">
+				<a href="AddStudent.php" class="btn btn-sm btn-danger">Add New Student</a>
+				<a href="Search.php" class="btn btn-sm btn-success">Pay Fee</a>
+				<a href="Routes.php" class="btn btn-sm btn-info">Add Transport Routes</a>
+				<a href="Dash.php?action=view_student" class="btn btn-sm btn-warning">View Student By Class</a>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <?php	
+} // Default page
 }else{
 	print "No way";
 }
